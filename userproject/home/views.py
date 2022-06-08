@@ -10,31 +10,24 @@ def index(request):
       return render('/login')
    return render(request,'index.html')
 
-def login(request):
-   return render(request,'login.html')
-   print("The request method is----------",request.method)
-   if request.method =="POST":
+def loginUser(request):
+   if request.method=="POST":
       username = request.POST.get('username')
       password = request.POST.get('password')
-      
+      print(username, password)
 
-      #check if user has entered correct credentials 
+      # check if user has entered correct credentials
       user = authenticate(username=username, password=password)
 
       if user is not None:
-    # A backend authenticated the credentials
-         login(request,user)
-         return redirect('/')
+         # A backend authenticated the credentials
+         login(request, user)
+         return redirect("/")
       else:
-    # No backend authenticated the credentials
-         return redirect(request,'login.html')   
-         
-   return redirect(request,'login.html')   
+         # No backend authenticated the credentials
+         return render(request, 'login.html')
 
-   # return render(request,"login.html")
-
-   
-
+   return render(request, 'login.html')
 
 
 def logoutUser(request):
